@@ -22,6 +22,7 @@ class GeneralService(Generic[Item]):
     def __init__(self, db: Session, model=Type[Item]):
         self.repo = GeneralRepository(db=db, model=model)
         self.model = model
+        self.db = db
 
     def list_all(self, skip: int = 0, limit: int = 100) -> List[Item]:
         return self.repo.list(skip=skip, limit=limit)
