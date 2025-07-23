@@ -3,6 +3,7 @@ Pydantic models for request validation and response serialization.
 """
 
 from pydantic import BaseModel, Field, ConfigDict
+from datetime import datetime
 
 
 class DrawBase(BaseModel):
@@ -13,7 +14,7 @@ class DrawBase(BaseModel):
         winner_id: ID of the winner.
     """
 
-    winner_id: int = Field(..., description="Winner's ID")
+    winner_id: int | None = Field(None, description="Winner's ID")
 
 
 class DrawCreate(DrawBase):
@@ -32,5 +33,5 @@ class Draw(DrawBase):
     """
 
     id: int = Field(..., description="Unique ID")
-    draw_date: int = Field(..., description="Date of the draw")
+    draw_date: datetime = Field(..., description="Date of the draw")
     model_config = ConfigDict(from_attributes=True)

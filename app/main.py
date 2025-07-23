@@ -4,12 +4,16 @@ FastAPI application instantiation and route definitions, leveraging service laye
 
 import logging
 
+from apscheduler.schedulers.background import BackgroundScheduler
 from fastapi import FastAPI, HTTPException, Request
 from sqlalchemy.exc import IntegrityError, DataError
 
+from app.api.v1.draw_endpoints import daily_draw, create_draw
 from app.config import Settings
 from app.data_access_layer.database import engine, Base
 from app.api.v1.participant_endpoints import router as participant_router
+from app.api.v1.draw_endpoints import router as draw_router
+from app.api.v1.ballot_endpoints import router as ballot_router
 from app.exceptions import NotFoundError, ValidationError
 
 # Initialize settings and logging
@@ -19,6 +23,18 @@ logger = logging.getLogger(__name__)
 
 # Create all database tables
 Base.metadata.create_all(bind=engine)
+
+
+# Schedule a draw
+def run_daily_draw():
+    daily_draw()  # draw a winner
+    create_draw()  # open a new lottery
+
+
+scheduler = BackgroundScheduler(timezone="Europe/Amsterdam")
+scheduler.add_job(run_daily_draw, "cron", hour=0, minute=0)
+scheduler.start()
+
 
 # Instantiate FastAPI
 app = FastAPI(
@@ -77,6 +93,8 @@ def health() -> dict:
 
 
 app.include_router(participant_router, prefix="/participants", tags=["Participants"])
+app.include_router(draw_router, prefix="/draws", tags=["Draws"])
+app.include_router(ballot_router, prefix="/ballots", tags=["Ballots"])
 
 if __name__ == "__main__":
     import uvicorn

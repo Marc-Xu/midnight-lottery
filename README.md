@@ -56,6 +56,23 @@ PATCH  /participants/{id}           Partially update
 DELETE /participants/{id}           Delete by ID
 ```
 
+### Draws
+```
+POST   /draws/               Create a new draw
+GET    /draws/               List draws (skip, limit)
+GET    /draws/daily-draw     Draw or retrieve a winner
+GET    /draws/{id}           Retrieve by ID
+DELETE /draws/{id}           Delete by ID
+```
+
+### Ballots
+```
+POST    /ballots/               Create a new ballot
+GET     /ballots/               List ballots (skip, limit)
+GET     /ballots/{id}           Retrieve by ID
+DELETE  /ballots/{id}           Delete by ID
+```
+
 ## Testing
 
 Run the full pytest suite:
