@@ -25,8 +25,8 @@ def get_draw_service(db: Session = Depends(get_db)) -> DrawService:
 
 @router.post("/", response_model=Draw, summary="Create draw")
 def create_draw(
-        payload: DrawCreate,
-        service: DrawService = Depends(get_draw_service),
+    payload: DrawCreate,
+    service: DrawService = Depends(get_draw_service),
 ) -> Draw:
     """
     Create a new draw using service layer.
@@ -36,9 +36,9 @@ def create_draw(
 
 @router.get("/", response_model=List[Draw], summary="List draws")
 def list_draws(
-        skip: int = 0,
-        limit: int = Query(10, ge=1, le=100),
-        service: DrawService = Depends(get_draw_service),
+    skip: int = 0,
+    limit: int = Query(10, ge=1, le=100),
+    service: DrawService = Depends(get_draw_service),
 ) -> List[Draw]:
     """
     List draws with pagination via service.
@@ -48,8 +48,8 @@ def list_draws(
 
 @router.get("/{draw_id}", response_model=Draw, summary="Get draw by ID")
 def get_draw(
-        draw_id: int,
-        service: DrawService = Depends(get_draw_service),
+    draw_id: int,
+    service: DrawService = Depends(get_draw_service),
 ) -> Draw:
     """
     Fetch a single draw by ID via service.
@@ -59,8 +59,8 @@ def get_draw(
 
 @router.delete("/{draw_id}", response_model=Draw, summary="Delete draw")
 def delete_draw(
-        draw_id: int,
-        service: DrawService = Depends(get_draw_service),
+    draw_id: int,
+    service: DrawService = Depends(get_draw_service),
 ) -> Draw:
     """
     Delete a draw via service.

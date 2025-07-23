@@ -25,8 +25,8 @@ def get_ballot_service(db: Session = Depends(get_db)) -> BallotService:
 
 @router.post("/", response_model=Ballot, summary="Create ballot")
 def create_ballot(
-        payload: BallotCreate,
-        service: BallotService = Depends(get_ballot_service),
+    payload: BallotCreate,
+    service: BallotService = Depends(get_ballot_service),
 ) -> Ballot:
     """
     Create a new ballot using service layer.
@@ -36,9 +36,9 @@ def create_ballot(
 
 @router.get("/", response_model=List[Ballot], summary="List ballots")
 def list_ballots(
-        skip: int = 0,
-        limit: int = Query(10, ge=1, le=100),
-        service: BallotService = Depends(get_ballot_service),
+    skip: int = 0,
+    limit: int = Query(10, ge=1, le=100),
+    service: BallotService = Depends(get_ballot_service),
 ) -> List[Ballot]:
     """
     List ballots with pagination via service.
@@ -48,8 +48,8 @@ def list_ballots(
 
 @router.get("/{ballot_id}", response_model=Ballot, summary="Get ballot by ID")
 def get_ballot(
-        ballot_id: int,
-        service: BallotService = Depends(get_ballot_service),
+    ballot_id: int,
+    service: BallotService = Depends(get_ballot_service),
 ) -> Ballot:
     """
     Fetch a single ballot by ID via service.
@@ -59,8 +59,8 @@ def get_ballot(
 
 @router.delete("/{ballot_id}", response_model=Ballot, summary="Delete ballot")
 def delete_ballot(
-        ballot_id: int,
-        service: BallotService = Depends(get_ballot_service),
+    ballot_id: int,
+    service: BallotService = Depends(get_ballot_service),
 ) -> Ballot:
     """
     Delete a ballot via service.
