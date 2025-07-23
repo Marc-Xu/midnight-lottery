@@ -14,7 +14,7 @@ class Settings(BaseSettings):
         debug: Enable FastAPI debug mode.
     """
 
-    db_url: str = "sqlite:///./restaurants.db"
+    db_url: str = "sqlite:///./lottery.db"
     debug: bool = False
 
     model_config = SettingsConfigDict(
