@@ -2,10 +2,15 @@
 Defines all /draws endpoints via APIRouter.
 """
 
+import secrets
+from datetime import datetime
 from typing import List
+
 from fastapi import APIRouter
 from fastapi import Depends, Query
 from sqlalchemy.orm import Session
+
+from app.business_logic.ballot_service import BallotService
 from app.business_logic.draw_service import DrawService
 from app.data_access_layer.database import get_db
 from app.api.v1.schemas.draw import (
@@ -44,6 +49,24 @@ def list_draws(
     List draws with pagination via service.
     """
     return service.list_all(skip=skip, limit=limit)
+
+
+@router.get("/daily-draw", response_model=Draw, summary="Daily Draw")
+def daily_draw(
+    service: DrawService = Depends(get_draw_service),
+) -> Draw:
+    """
+    Draw or retrieve a winner via service.
+    """
+    draw = service.get_by_attributes(attributes={"draw_date": datetime.now().date()})[0]
+    if draw.winner_id is None:
+        ballot_service = BallotService(service.db)
+        ballots = ballot_service.get_by_attributes({"draw_id": draw.id})
+        winner = secrets.choice(ballots)
+        draw = service.update(
+            item_id=draw.id, data={"winner_id": winner.participant_id}
+        )
+    return draw
 
 
 @router.get("/{draw_id}", response_model=Draw, summary="Get draw by ID")
