@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "crud-template"
+name = "midnight-lottery"
 version = "0.1.0"
-description = "A simple FastAPI-based crud template."
+description = "A FastAPI-based lottery application."
 authors = ["Marc Xu <marc.xuzhou@gmail.com>"]
 readme = "README.md"
 
