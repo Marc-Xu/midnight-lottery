@@ -9,7 +9,7 @@ from sqlalchemy.exc import IntegrityError, DataError
 
 from app.config import Settings
 from app.data_access_layer.database import engine, Base
-from app.api.v1.restaurant_endpoints import router as restaurant_router
+from app.api.v1.participant_endpoints import router as participant_router
 from app.exceptions import NotFoundError, ValidationError
 
 # Initialize settings and logging
@@ -22,7 +22,7 @@ Base.metadata.create_all(bind=engine)
 
 # Instantiate FastAPI
 app = FastAPI(
-    title="🍽️ Forkcast Restaurant Recommender",
+    title="Midnight Lottery",
     debug=settings.debug,
 )
 
@@ -76,7 +76,7 @@ def health() -> dict:
     return {"status": "ok"}
 
 
-app.include_router(restaurant_router, prefix="/restaurants", tags=["Restaurants"])
+app.include_router(participant_router, prefix="/participants", tags=["Participants"])
 
 if __name__ == "__main__":
     import uvicorn

@@ -1,6 +1,6 @@
-# CRUD Template 🍽️
+# Midnight Lottery
 
-**CRUD-Template** is a template FastAPI application that features a layered architecture (Router → Service → Repository → ORM → Database), custom error handling, and full test coverage.
+**Midnight Lottery** is a FastAPI application that allows users to participate in lotteries. It features a layered architecture (Router → Service → Repository → ORM → Database), custom error handling, and full test coverage.
 
 ## Features
 
@@ -23,8 +23,8 @@
 
 1. Clone the repository:
    ```bash
-   git clone git@github.com:Marc-Xu/crud-template.git
-   cd forkcast
+   git clone git@github.com:Marc-Xu/midnight-lottery.git
+   cd midnight-lottery
    ```
 2. Install dependencies:
    ```bash
@@ -47,13 +47,13 @@ GET /health
 Response: { "status": "ok" }
 ```
 
-### Restaurants
+### Participants
 ```
-POST   /restaurants/               Create a new restaurant
-GET    /restaurants/               List restaurants (skip, limit)
-GET    /restaurants/{id}           Retrieve by ID
-PATCH  /restaurants/{id}           Partially update
-DELETE /restaurants/{id}           Delete by ID
+POST   /participants/               Create a new participant
+GET    /participants/               List participants (skip, limit)
+GET    /participants/{id}           Retrieve by ID
+PATCH  /participants/{id}           Partially update
+DELETE /participants/{id}           Delete by ID
 ```
 
 ## Testing
